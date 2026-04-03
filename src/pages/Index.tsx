@@ -1,10 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Building2, Wrench, Zap, Grid3X3, HardHat, Settings, Phone, MessageCircle, Award, Users, Clock, Shield, Star, Quote, Bot, Calculator, HelpCircle, Sparkles, Facebook } from "lucide-react";
+import { ArrowRight, Building2, Wrench, Zap, Grid3X3, HardHat, Settings, Phone, Award, Users, Clock, Shield, Star, Quote, Bot, Calculator, HelpCircle, Sparkles, Facebook } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import visionBotImage from "@/assets/chatbot/visionbot.png";
 import AnimatedCounter from "@/components/ui/animated-counter";
-import SectionAnimation from "@/components/ui/section-animation";
 import {
   Carousel,
   CarouselContent,

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; 
 import { Facebook, MessageCircle, Phone, Mail, MapPin, Clock } from "lucide-react";
 import logo from "../../assets/logo-new.png"; // Importation du logo
 

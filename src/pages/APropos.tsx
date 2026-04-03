@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Building2, Users, Award, Target, Heart, Lightbulb, MapPin, Calendar, ArrowRight, Bot, Calculator, HelpCircle, Sparkles, Star, Quote } from "lucide-react";
+import {  Users, Award, Target, Heart, Lightbulb, MapPin, Calendar, ArrowRight, Bot, Calculator, HelpCircle, Sparkles, Star, Quote } from "lucide-react";
 import AnimatedCounter from "@/components/ui/animated-counter";
 import SectionAnimation from "@/components/ui/section-animation";
 
@@ -11,7 +11,6 @@ import equipe3 from "@/assets/team/equipe-3.jpeg";
 import fondateur1 from "@/assets/team/fondateur-1.jpeg";
 import fondateur2 from "@/assets/team/fondateur-2.jpeg";
 import visionBotImage from "@/assets/chatbot/visionbot.png";
-import equipeGroupe3 from "@/assets/team/equipe-3.jpeg";
 
 const testimonials = [
   {
