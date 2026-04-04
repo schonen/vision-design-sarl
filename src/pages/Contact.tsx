@@ -111,7 +111,7 @@ export default function Contact() {
   // Génération des messages (inchangée)
   const generateWhatsAppMessage = () => {
     const projectLabel = projectTypeLabels[formData.projectType] || formData.projectType;
-    let message = `*NOUVELLE DEMANDE DE DEVIS - Vision Design SARL*\n\n`;
+    let message = `*NOUVELLE DEMANDE DE CONSULTATION - Vision Design SARL*\n\n`;
     message += `*Client:* ${formData.name}\n`;
     if (formData.phone) message += `*Téléphone:* ${formData.phone}\n`;
     if (formData.email) message += `*Email:* ${formData.email}\n`;
@@ -140,7 +140,7 @@ export default function Contact() {
 <body>
   <div class="container">
     <div class="header">
-      <h2>Nouvelle Demande de Devis</h2>
+      <h2>Nouvelle Demande de Consultation</h2>
     </div>
     <div class="content">
       <div class="info-box">
@@ -177,7 +177,7 @@ export default function Contact() {
 
   const sendToEmail = () => {
     const { htmlBody } = generateEmailTemplate();
-    const subject = encodeURIComponent(`Demande de devis - ${formData.name}`);
+    const subject = encodeURIComponent(`Demande de consultation - ${formData.name}`);
     const body = encodeURIComponent(htmlBody.replace(/<[^>]*>/g, ''));
     window.open(
       `https://mail.google.com/mail/?view=cm&fs=1&to=visiondesignsarl@gmail.com&su=${subject}&body=${body}`,
@@ -188,7 +188,7 @@ export default function Contact() {
   const sendToSMS = (phoneNumber: string) => {
     const projectLabel = projectTypeLabels[formData.projectType] || formData.projectType;
     const message = encodeURIComponent(
-      `Vision Design: Nouveau devis - ${formData.name} - ${projectLabel} - ${formData.message.substring(0, 50)}...`
+      `Vision Design: Nouvelle consultation - ${formData.name} - ${projectLabel} - ${formData.message.substring(0, 50)}...`
     );
     if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
       window.location.href = `sms:${phoneNumber}?body=${message}`;
@@ -277,7 +277,7 @@ export default function Contact() {
             {/* Form */}
             <SectionAnimation direction="left">
               <div className="bg-card rounded-2xl p-6 sm:p-8 shadow-lg">
-                <h2 className="text-2xl font-heading font-bold text-foreground mb-6">Demander un Devis</h2>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-6">Demander une Consultation</h2>
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">Nom complet *</label>

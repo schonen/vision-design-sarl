@@ -180,7 +180,7 @@ export default function RealisationDetail() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
-                  Demander un Devis <ArrowRightIcon className="w-4 h-4" />
+                  Demander une Consultation <ArrowRightIcon className="w-4 h-4" />
                 </Link>
                 <a href="https://wa.me/237677571699" target="_blank" rel="noopener noreferrer" className="btn-outline inline-flex items-center gap-2">
                   <MessageCircle className="w-4 h-4" /> WhatsApp

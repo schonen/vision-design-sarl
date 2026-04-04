@@ -230,7 +230,7 @@ export default function Services() {
                         onClick={(e) => handleContactRedirect(e, service.id)}
                         className="btn-primary inline-flex items-center justify-center"
                       >
-                        Demander un Devis
+                        Demander une Consultation
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </a>
                       <a

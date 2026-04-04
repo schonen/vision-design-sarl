@@ -16,7 +16,7 @@ const quickLinks = [
   { name: "Nos Réalisations", href: "/realisations" },
   { name: "À Propos", href: "/a-propos" },
   { name: "Notre Univers", href: "/notre-univers" },
-  { name: "Demander un Devis", href: "/contact" },
+  { name: "Contact", href: "/contact" },
 ];
 
 export default function Footer() {

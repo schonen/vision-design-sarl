@@ -208,7 +208,7 @@ export default function Index() {
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Link to="/contact" className="btn-hero-primary">
-                Demander un Devis
+                Demander une Consultation
               </Link>
               <Link to="/realisations" className="btn-hero-secondary">
                 Voir Nos Réalisations
@@ -764,7 +764,7 @@ export default function Index() {
                 to="/contact"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-accent-foreground/10 text-accent-foreground border-2 border-accent-foreground/30 font-semibold hover:bg-accent-foreground/20 hover:-translate-y-1 transition-all duration-300"
               >
-                Demander un Devis
+                Demander une Consultation
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </motion.div>
