@@ -54,10 +54,7 @@ export default function MentionsLegales() {
                     <span className="font-semibold text-foreground">Capital social :</span> 10 000 000 FCFA
                   </p>
                   <p>
-                    <span className="font-semibold text-foreground">Registre du commerce :</span> RC/YAO/2021/B/1234
-                  </p>
-                  <p>
-                    <span className="font-semibold text-foreground">N° Contribuable :</span> M1234567890P
+                    <span className="font-semibold text-foreground">Registre du commerce :</span> RC/YAD/2021/B/2029
                   </p>
                   <p>
                     <span className="font-semibold text-foreground">Siège social :</span> Yaoundé, Omnisport, Avant Matrix Telecoms, En face du cimetière Omnisport
@@ -79,7 +76,7 @@ export default function MentionsLegales() {
                 </div>
                 <div className="space-y-4 text-muted-foreground">
                   <p>
-                    <span className="font-semibold text-foreground">Nom et prénom :</span> Jean-Pierre Mbarga
+                    <span className="font-semibold text-foreground">Nom et prénom :</span> Jules Valmy SADO
                   </p>
                   <p>
                     <span className="font-semibold text-foreground">Fonction :</span> Gérant
@@ -92,37 +89,40 @@ export default function MentionsLegales() {
             </SectionAnimation>
 
             {/* Hébergement */}
-            <SectionAnimation delay={0.2}>
-              <div className="bg-card rounded-2xl p-8 shadow-lg border border-border">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
-                    <Home className="w-6 h-6 text-accent" />
-                  </div>
-                  <h2 className="text-2xl font-heading font-bold text-foreground">
-                    Hébergement
-                  </h2>
-                </div>
-                <div className="space-y-4 text-muted-foreground">
-                  <p>
-                    <span className="font-semibold text-foreground">Hébergeur :</span> OVH SAS
-                  </p>
-                  <p>
-                    <span className="font-semibold text-foreground">Siège social :</span> 2 rue Kellermann - 59100 Roubaix - France
-                  </p>
-                  <p>
-                    <span className="font-semibold text-foreground">Site web :</span>{" "}
-                    <a 
-                      href="https://www.ovh.com" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-primary hover:underline"
-                    >
-                      www.ovh.com
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </SectionAnimation>
+<SectionAnimation delay={0.2}>
+  <div className="bg-card rounded-2xl p-8 shadow-lg border border-border">
+    <div className="flex items-center gap-4 mb-6">
+      <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
+        <Home className="w-6 h-6 text-accent" />
+      </div>
+      <h2 className="text-2xl font-heading font-bold text-foreground">
+        Hébergement
+      </h2>
+    </div>
+    <div className="space-y-4 text-muted-foreground">
+      <p>
+        <span className="font-semibold text-foreground">Hébergeur :</span> Vercel Inc.
+      </p>
+      <p>
+        <span className="font-semibold text-foreground">Siège social :</span> 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis
+      </p>
+      <p>
+        <span className="font-semibold text-foreground">Site web :</span>{" "}
+        <a 
+          href="https://vercel.com" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-primary hover:underline"
+        >
+          vercel.com
+        </a>
+      </p>
+      <p className="text-sm mt-2">
+        <span className="font-semibold text-foreground">Nom de domaine :</span> enregistré auprès de Namecheap, Inc.
+      </p>
+    </div>
+  </div>
+</SectionAnimation>
 
             {/* Contact */}
             <SectionAnimation delay={0.3}>
@@ -179,7 +179,7 @@ export default function MentionsLegales() {
                     Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de Vision Design SARL.
                   </p>
                   <p className="font-semibold text-foreground mt-4">
-                    © 2026 Vision Design SARL - Tous droits réservés
+                    © Vision Design SARL - Tous droits réservés
                   </p>
                 </div>
               </div>

@@ -220,7 +220,7 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-primary-foreground/10">
         <div className="container-custom py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/60">
-          <p>© 2026 Vision Design SARL. Tous droits réservés.</p>
+          <p>© Vision Design SARL. Tous droits réservés.</p>
           <div className="flex gap-6">
             <button
               onClick={() => handleLinkClick("/mentions-legales")}

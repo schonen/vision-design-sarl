@@ -63,14 +63,29 @@ const visionBotFeatures = [
 
 const timeline = [
   {
-    year: "2021",
+    year: "2016",
     title: "Création de Vision Design SARL",
     description: "Fondation de l'entreprise par M. DEFFO SADO Thomas Daquin avec une vision claire : transformer le secteur du génie civil au Cameroun.",
   },
   {
-    year: "2022",
+    year: "2018",
     title: "Premiers Grands Projets",
-    description: "Réalisation de nos premiers projets majeurs incluant des villas de luxe et des installations solaires.",
+    description: "Réalisation de nos premiers projets majeurs incluant des villas de luxe, des appartements haut standing et des immeubles en étage.",
+  },
+  {
+    year: "2020",
+    title: "Développement de l'expertise technique", 
+    description: "Obtention des certifications professionnelles et montée en compétence de l'équipe sur les normes internationales de construction.",
+  },
+  {
+    year: "2021",
+    title: "Immatriculation de Vision Design SARL",
+    description: "Immatriculation officielle sous le numéro RC/YAD/2021/B/2029, marquant le début légal de notre activité et notre engagement à respecter les exigences du génie civil au Cameroun.",
+  },
+  {
+    year: "2022",
+    title: "Lancement des grands chantiers",
+    description: "Signature des premiers contrats pour des projets d'infrastructure et de bâtiments commerciaux, posant les bases de notre notoriété dans la région.",
   },
   {
     year: "2023",
@@ -156,7 +171,7 @@ export default function APropos() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                   <div>
                     <span className="text-3xl md:text-4xl font-heading font-black text-accent">
-                      <AnimatedCounter end={5} suffix="+" />
+                      <AnimatedCounter end={10} suffix="+" />
                     </span>
                     <p className="text-primary-foreground/90 mt-1">Années</p>
                   </div>
@@ -168,7 +183,7 @@ export default function APropos() {
                   </div>
                   <div>
                     <span className="text-3xl md:text-4xl font-heading font-black text-accent">
-                      <AnimatedCounter end={20} suffix="+" />
+                      <AnimatedCounter end={40} suffix="+" />
                     </span>
                     <p className="text-primary-foreground/90 mt-1">Experts</p>
                   </div>
@@ -329,7 +344,7 @@ export default function APropos() {
               Une équipe passionnée et en croissance
             </h2>
             <p className="text-lg text-muted-foreground">
-              Depuis notre création en 2021, notre équipe n'a cessé de s'agrandir, 
+              Depuis notre création en 2016, notre équipe n'a cessé de s'agrandir, 
               réunissant des talents passionnés par le génie civil et la construction.
             </p>
           </SectionAnimation>
@@ -373,13 +388,13 @@ export default function APropos() {
               <div className="grid md:grid-cols-3 gap-8 text-center mb-8">
                 <div>
                   <span className="text-4xl font-heading font-black text-secondary">
-                    <AnimatedCounter end={5} suffix="+" />
+                    <AnimatedCounter end={10} suffix="+" />
                   </span>
                   <p className="text-muted-foreground mt-1">Années d'expérience</p>
                 </div>
                 <div>
                   <span className="text-4xl font-heading font-black text-secondary">
-                    <AnimatedCounter end={20} suffix="+" />
+                    <AnimatedCounter end={40} suffix="+" />
                   </span>
                   <p className="text-muted-foreground mt-1">Membres dans l'équipe</p>
                 </div>
@@ -436,7 +451,7 @@ export default function APropos() {
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   Entrepreneur passionné, M. DEFO SADO Thomas Daquin a fondé
-                  Vision Design SARL en 2021 avec une vision claire : révolutionner le 
+                  Vision Design SARL en 2016 avec une vision claire : révolutionner le 
                   secteur de la construction au Cameroun en alliant excellence technique 
                   et innovation.
                 </p>
