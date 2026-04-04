@@ -178,7 +178,7 @@ export default function Index() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/20 mb-6"
             >
               <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-              <span className="text-sm font-medium">Depuis 2021 à Yaoundé, Cameroun</span>
+              <span className="text-sm font-medium">Depuis 2016 à Yaoundé, Cameroun</span>
             </motion.div>
 
             <motion.h1
@@ -248,7 +248,7 @@ export default function Index() {
                   transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
                 >
                   <div className="text-center text-accent-foreground">
-                    <span className="text-3xl font-heading font-black block">3+</span>
+                    <span className="text-3xl font-heading font-black block">10+</span>
                     <span className="text-sm font-medium">Années</span>
                   </div>
                 </motion.div>
@@ -268,13 +268,13 @@ export default function Index() {
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-foreground">
                 Bâtir l'excellence depuis{" "}
-                <span className="text-primary">2021</span>
+                <span className="text-primary">2016</span>
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Vision Design SARL est née de la passion de M. DEFFO SADO Thomas Daquin 
+                Vision Design SARL est née de la passion de M. DEFO SADO Thomas Daquin 
                 pour le génie civil et l'architecture. Depuis notre création à Yaoundé, 
-                nous avons réalisé plus de 20 projets, allant des villas de luxe aux 
-                installations industrielles.
+                nous avons réalisé plus de 20 projets, allant des appartements haut standing et immeubles à étages aux 
+                installations industrielles, électiques, sanitaires et solaires.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
                 Notre équipe de professionnels qualifiés s'engage à fournir des services 
@@ -291,7 +291,7 @@ export default function Index() {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-12 border-t border-border">
             {[
-              { end: 5, suffix: "+", label: "Années d'expérience" },
+              { end: 10, suffix: "+", label: "Années d'expérience" },
               { end: 20, suffix: "+", label: "Projets réalisés" },
               { end: 100, suffix: "%", label: "Clients satisfaits" },
               { end: 20, suffix: "+", label: "Experts qualifiés" },

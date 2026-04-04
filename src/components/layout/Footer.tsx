@@ -15,6 +15,7 @@ const quickLinks = [
   { name: "Accueil", href: "/" },
   { name: "Nos Réalisations", href: "/realisations" },
   { name: "À Propos", href: "/a-propos" },
+  { name: "Notre Univers", href: "/notre-univers" },
   { name: "Demander un Devis", href: "/contact" },
 ];
 
@@ -105,7 +106,7 @@ export default function Footer() {
             </div>
             <p className="text-primary-foreground/80 leading-relaxed">
               VDS - L'avenir du génie civil. Entreprise spécialisée dans la construction 
-              et les travaux de génie civil à Yaoundé, Cameroun depuis 2021.
+              et les travaux de génie civil à Yaoundé, Cameroun depuis 2016.
             </p>
             <div className="flex gap-4">
               <a
