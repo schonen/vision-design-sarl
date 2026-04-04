@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Play, ZoomIn, HardHat, Ruler, Wrench, Zap, Droplets, Flame, SkipBack, SkipForward, X } from "lucide-react";
 import SectionAnimation from "@/components/ui/section-animation";
 
-// ========== 1. IMPORTS DES 35 IMAGES  ==========
+// ========== 1. IMPORTS DES 35 IMAGES ==========
 import chantier1 from "@/assets/univers/chantier1.jpg";
 import chantier2 from "@/assets/univers/chantier2.jpg";
 import chantier3 from "@/assets/univers/chantier3.jpg";
@@ -47,9 +47,12 @@ import video3 from "@/assets/univers/video3.mp4";
 import video4 from "@/assets/univers/video4.mp4";
 import video5 from "@/assets/univers/video5.mp4";
 
-// ========== 3. REGROUPEMENT DES MÉDIAS ==========
+// ========== 3. IMAGE DE FOND POUR LE HERO ==========
+import immeubleVds from "@/assets/hero/immeuble-vds.png";
+
+// ========== 4. REGROUPEMENT DES MÉDIAS ==========
 const medias = [
-  // 35 images
+  // 35 images (mêmes titres que précédemment)
   { type: "image", src: chantier1, title: "Maçonnerie – Béton armé" },
   { type: "image", src: chantier2, title: "Installation hourdis" },
   { type: "image", src: chantier3, title: "Pose des hourdis" },
@@ -82,7 +85,7 @@ const medias = [
   { type: "image", src: chantier31, title: "Montage des murs de structure" },
   { type: "image", src: chantier32, title: "Coordination des équipes d'exécution sur chantier de gros œuvre" },
   { type: "image", src: chantier33, title: "Pierre naturelle" },
-  { type: "image", src: chantier34, title: "ferraillage fondation Radier" },
+  { type: "image", src: chantier34, title: "Ferraillage fondation radier" },
   { type: "image", src: chantier35, title: "Notre équipe en action" },
   // 5 vidéos
   { type: "video", src: video1, title: "Coulée de béton – Villa R+1" },
@@ -92,7 +95,7 @@ const medias = [
   { type: "video", src: video5, title: "Avancement chantier – Immeuble" },
 ];
 
-// Composant lecteur vidéo personnalisé avec avance/recul 10s
+// Composant lecteur vidéo personnalisé (identique)
 const VideoPlayer = ({ src, onClose }: { src: string; onClose: () => void }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -106,9 +109,7 @@ const VideoPlayer = ({ src, onClose }: { src: string; onClose: () => void }) => 
   };
 
   const skip = (seconds: number) => {
-    if (videoRef.current) {
-      videoRef.current.currentTime += seconds;
-    }
+    if (videoRef.current) videoRef.current.currentTime += seconds;
   };
 
   useEffect(() => {
@@ -136,31 +137,17 @@ const VideoPlayer = ({ src, onClose }: { src: string; onClose: () => void }) => 
         />
         {/* Contrôles personnalisés */}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 flex justify-center gap-6">
-          <button
-            onClick={() => skip(-10)}
-            className="bg-white/20 hover:bg-white/40 rounded-full p-3 transition"
-            title="Reculer de 10 secondes"
-          >
+          <button onClick={() => skip(-10)} className="bg-white/20 hover:bg-white/40 rounded-full p-3 transition" title="Reculer de 10 secondes">
             <SkipBack className="w-6 h-6 text-white" />
           </button>
-          <button
-            onClick={togglePlay}
-            className="bg-accent hover:bg-accent/80 rounded-full p-4 transition shadow-lg"
-          >
+          <button onClick={togglePlay} className="bg-accent hover:bg-accent/80 rounded-full p-4 transition shadow-lg">
             {isPlaying ? <div className="w-6 h-6 bg-white" style={{ clipPath: "polygon(0% 0%, 0% 100%, 100% 50%)" }} /> : <Play className="w-6 h-6 text-white ml-0.5" />}
           </button>
-          <button
-            onClick={() => skip(10)}
-            className="bg-white/20 hover:bg-white/40 rounded-full p-3 transition"
-            title="Avancer de 10 secondes"
-          >
+          <button onClick={() => skip(10)} className="bg-white/20 hover:bg-white/40 rounded-full p-3 transition" title="Avancer de 10 secondes">
             <SkipForward className="w-6 h-6 text-white" />
           </button>
         </div>
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-white bg-black/50 rounded-full p-2 hover:bg-black/70 transition"
-        >
+        <button onClick={onClose} className="absolute top-4 right-4 text-white bg-black/50 rounded-full p-2 hover:bg-black/70 transition">
           <X className="w-6 h-6" />
         </button>
       </div>
@@ -174,10 +161,18 @@ export default function NotreUnivers() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-br from-primary-dark via-primary to-primary-dark">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[url('@/assets/hero/pattern-batiment.png')] bg-repeat" />
+      {/* Hero Section avec image de fond immeubleVds et overlay */}
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        <div className="absolute inset-0">
+          <motion.img
+            src={immeubleVds}
+            alt="Vision Design - Bâtiment"
+            className="w-full h-full object-cover"
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+          />
+          <div className="absolute inset-0 bg-gradient-hero opacity-90" />
         </div>
         <div className="relative container-custom text-center text-primary-foreground">
           <motion.div
