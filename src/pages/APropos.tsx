@@ -14,14 +14,14 @@ import visionBotImage from "@/assets/chatbot/visionbot.png";
 
 const testimonials = [
   {
-    name: "Mr Pombo",
+    name: "Mr Jean Kalvin LABUSE",
     role: "Homme d'affaires",
     location: "Bamendjou, Maison Blanche",
     content: "Vision Design a construit ma résidence avec un professionnalisme exemplaire. Les finitions sont remarquables et le résultat dépasse toutes mes attentes. Une équipe de confiance !",
     rating: 5,
   },
   {
-    name: "Mr Hakapoka",
+    name: "Mr CLaude MBARGA",
     role: "Médecin",
     location: "Yaoundé, Omnisport - R+3",
     content: "Mon immeuble R+3 à Omnisport a été réalisé dans les délais avec une qualité irréprochable. L'équipe Vision Design est compétente, rigoureuse et à l'écoute. Je recommande vivement.",
@@ -35,7 +35,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    name: "Mr Kemken",
+    name: "Mr Régis KENFACK",
     role: "Entrepreneur",
     location: "Cameroun",
     content: "Des travaux réalisés avec expertise et un grand professionnalisme. Vision Design SARL est une entreprise sérieuse qui respecte ses engagements. Je leur fais entièrement confiance.",
