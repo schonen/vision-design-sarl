@@ -1,6 +1,11 @@
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Building2, Wrench, Zap, Grid3X3, HardHat, Settings, Phone, Award, Users, Clock, Shield, Star, Quote, Bot, Calculator, HelpCircle, Sparkles, Facebook } from "lucide-react";
+import {
+  ArrowRight, Building2, Wrench, Zap, Grid3X3, HardHat, Settings, Phone,
+  Award, Users, Clock, Shield, Star, Quote, Bot, Calculator, HelpCircle,
+  Sparkles, Facebook, Play, Pause, SkipBack, SkipForward, Maximize, Minimize
+} from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import visionBotImage from "@/assets/chatbot/visionbot.png";
 import AnimatedCounter from "@/components/ui/animated-counter";
@@ -21,6 +26,9 @@ import immeubleOmnisport2 from "@/assets/projects/immeuble-omnisport-2.png";
 import electricalSystem from "@/assets/projects/electrical-system.jpeg";
 import equipe from "@/assets/team/equipe-1.jpeg";
 import immeubleVds from "@/assets/hero/immeuble-vds.png";
+
+// Vidéo de présentation
+import presentationVideo from "@/assets/accueil/Présentation VDS.mp4";
 
 const services = [
   {
@@ -113,7 +121,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    name: "Mr CLaude MBARGA",
+    name: "Mr Claude MBARGA",
     role: "Médecin",
     location: "Yaoundé, Omnisport - R+3",
     content: "Mon immeuble R+3 à Omnisport a été réalisé dans les délais avec une qualité irréprochable. L'équipe Vision Design est compétente, rigoureuse et à l'écoute. Je recommande vivement.",
@@ -146,11 +154,86 @@ export default function Index() {
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
   };
 
+  // États pour la vidéo
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+  // Fonctions de contrôle de la vidéo
+  const togglePlayPause = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const skip = (seconds: number) => {
+    if (videoRef.current) {
+      videoRef.current.currentTime += seconds;
+    }
+  };
+
+  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (videoRef.current) {
+      const time = parseFloat(e.target.value);
+      videoRef.current.currentTime = time;
+      setCurrentTime(time);
+    }
+  };
+
+  const toggleFullscreen = () => {
+    const videoElement = videoRef.current;
+    if (!document.fullscreenElement && videoElement) {
+      videoElement.requestFullscreen();
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen();
+      setIsFullscreen(false);
+    }
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  };
+
+  // Écouter les événements de la vidéo
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleTimeUpdate = () => setCurrentTime(video.currentTime);
+    const handleLoadedMetadata = () => setDuration(video.duration);
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+    const handleFullscreenChange = () => setIsFullscreen(!!document.fullscreenElement);
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('loadedmetadata', handleLoadedMetadata);
+    video.addEventListener('play', handlePlay);
+    video.addEventListener('pause', handlePause);
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      video.removeEventListener('play', handlePlay);
+      video.removeEventListener('pause', handlePause);
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
+
   return (
     <>
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background */}
         <div className="absolute inset-0">
           <motion.img
             src={immeubleVds}
@@ -163,7 +246,6 @@ export default function Index() {
           <div className="absolute inset-0 bg-gradient-hero opacity-90" />
         </div>
 
-        {/* Content */}
         <div className="relative z-10 container-custom text-center text-primary-foreground pt-20">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -218,10 +300,89 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Video Presentation Section */}
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="section-padding bg-background"
+      >
+        <div className="container-custom">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-foreground">
+              Découvrez Vision Design en vidéo
+            </h2>
+            <p className="text-muted-foreground mt-2">
+              Notre savoir-faire et notre engagement en images
+            </p>
+          </div>
+          <div className="relative max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl bg-black group">
+            <video
+              ref={videoRef}
+              src={presentationVideo}
+              className="w-full h-auto"
+              poster=""
+              onClick={togglePlayPause}
+            />
+            {/* Overlay des contrôles */}
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 transition-opacity duration-300">
+              {/* Barre de progression avec temps */}
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-white text-sm">
+                  {formatTime(currentTime)}
+                </span>
+                <input
+                  type="range"
+                  min="0"
+                  max={duration || 0}
+                  value={currentTime}
+                  onChange={handleSeek}
+                  className="flex-1 h-1 bg-white/30 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent"
+                />
+                <span className="text-white text-sm">
+                  {formatTime(duration)}
+                </span>
+              </div>
+              {/* Boutons de contrôle */}
+              <div className="flex justify-center gap-6">
+                <button
+                  onClick={() => skip(-10)}
+                  className="bg-white/20 hover:bg-white/40 rounded-full p-3 transition text-white"
+                  title="Reculer de 10 secondes"
+                >
+                  <SkipBack className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={togglePlayPause}
+                  className="bg-accent hover:bg-accent/80 rounded-full p-4 transition shadow-lg text-white"
+                >
+                  {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-0.5" />}
+                </button>
+                <button
+                  onClick={() => skip(10)}
+                  className="bg-white/20 hover:bg-white/40 rounded-full p-3 transition text-white"
+                  title="Avancer de 10 secondes"
+                >
+                  <SkipForward className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={toggleFullscreen}
+                  className="bg-white/20 hover:bg-white/40 rounded-full p-3 transition text-white"
+                  title="Plein écran"
+                >
+                  {isFullscreen ? <Minimize className="w-6 h-6" /> : <Maximize className="w-6 h-6" />}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.section>
+
       {/* Team & Introduction */}
       <section className="section-padding bg-background">
         <div className="container-custom">
-          <motion.div 
+          <motion.div
             className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -240,7 +401,7 @@ export default function Index() {
                   alt="L'équipe Vision Design SARL"
                   className="w-full rounded-2xl shadow-lg"
                 />
-                <motion.div 
+                <motion.div
                   className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-accent rounded-2xl flex items-center justify-center shadow-lg"
                   initial={{ scale: 0, rotate: -180 }}
                   whileInView={{ scale: 1, rotate: 0 }}
@@ -271,14 +432,14 @@ export default function Index() {
                 <span className="text-primary">2016</span>
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Vision Design SARL est née de la passion de M. DEFO SADO Thomas Daquin 
-                pour le génie civil et l'architecture. Depuis notre création à Yaoundé, 
-                nous avons réalisé plus de 20 projets, allant des appartements haut standing et immeubles à étages aux 
+                Vision Design SARL est née de la passion de M. DEFO SADO Thomas Daquin
+                pour le génie civil et l'architecture. Depuis notre création à Yaoundé,
+                nous avons réalisé plus de 20 projets, allant des appartements haut standing et immeubles à étages aux
                 installations industrielles, électiques, sanitaires et solaires.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Notre équipe de professionnels qualifiés s'engage à fournir des services 
-                de qualité supérieure, respectant les normes internationales et les 
+                Notre équipe de professionnels qualifiés s'engage à fournir des services
+                de qualité supérieure, respectant les normes internationales et les
                 délais convenus.
               </p>
               <Link to="/a-propos" className="btn-primary inline-flex items-center gap-2">
@@ -316,7 +477,6 @@ export default function Index() {
 
       {/* VisionBot Section */}
       <section className="section-padding bg-gradient-to-br from-primary-dark via-primary to-primary-dark relative overflow-hidden">
-        {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
             animate={{ rotate: 360 }}
@@ -331,14 +491,13 @@ export default function Index() {
         </div>
 
         <div className="container-custom relative z-10">
-          <motion.div 
+          <motion.div
             className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            {/* Text Content */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -355,11 +514,10 @@ export default function Index() {
                 <span className="text-secondary">VisionBot</span>
               </h2>
               <p className="text-lg text-primary-foreground/80 leading-relaxed">
-                Notre assistant virtuel intelligent est là pour vous accompagner 24h/24. 
-                Posez vos questions sur nos services, obtenez des estimations de budget 
+                Notre assistant virtuel intelligent est là pour vous accompagner 24h/24.
+                Posez vos questions sur nos services, obtenez des estimations de budget
                 et recevez des conseils personnalisés instantanément.
               </p>
-              
               <div className="space-y-4">
                 {[
                   { icon: HelpCircle, text: "Réponses instantanées à toutes vos questions" },
@@ -381,7 +539,6 @@ export default function Index() {
                   </motion.div>
                 ))}
               </div>
-
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -394,7 +551,6 @@ export default function Index() {
               </motion.p>
             </motion.div>
 
-            {/* VisionBot Image */}
             <motion.div
               initial={{ opacity: 0, rotateY: 30 }}
               whileInView={{ opacity: 1, rotateY: 0 }}
@@ -413,8 +569,6 @@ export default function Index() {
                   className="w-full max-w-md mx-auto drop-shadow-2xl"
                 />
               </motion.div>
-              
-              {/* Floating elements */}
               <motion.div
                 animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }}
                 transition={{ duration: 3, repeat: Infinity }}
@@ -433,7 +587,7 @@ export default function Index() {
       {/* Services Section */}
       <section className="section-padding bg-muted/50">
         <div className="container-custom">
-          <motion.div 
+          <motion.div
             className="text-center max-w-3xl mx-auto mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -448,7 +602,7 @@ export default function Index() {
               Des solutions complètes pour vos projets
             </h2>
             <p className="text-lg text-muted-foreground">
-              De la conception à la réalisation, nous vous accompagnons à chaque étape 
+              De la conception à la réalisation, nous vous accompagnons à chaque étape
               de votre projet de construction ou de rénovation.
             </p>
           </motion.div>
@@ -489,7 +643,7 @@ export default function Index() {
       {/* Projects Carousel */}
       <section className="section-padding bg-background">
         <div className="container-custom">
-          <motion.div 
+          <motion.div
             className="text-center max-w-3xl mx-auto mb-12"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -504,7 +658,7 @@ export default function Index() {
               Découvrez nos projets récents
             </h2>
             <p className="text-lg text-muted-foreground">
-              Chaque projet témoigne de notre engagement envers l'excellence 
+              Chaque projet témoigne de notre engagement envers l'excellence
               et la satisfaction de nos clients.
             </p>
           </motion.div>
@@ -530,7 +684,7 @@ export default function Index() {
               <CarouselContent className="-ml-4">
                 {projects.map((project, index) => (
                   <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                    <motion.div 
+                    <motion.div
                       className="project-card aspect-[4/3]"
                       whileHover={{ scale: 1.02 }}
                       transition={{ duration: 0.3 }}
@@ -560,7 +714,7 @@ export default function Index() {
             </Carousel>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="text-center mt-10"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -578,7 +732,7 @@ export default function Index() {
       {/* Why Choose Us */}
       <section className="section-padding bg-muted/50">
         <div className="container-custom">
-          <motion.div 
+          <motion.div
             className="text-center max-w-3xl mx-auto mb-16"
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -593,7 +747,7 @@ export default function Index() {
               L'excellence à votre service
             </h2>
             <p className="text-lg text-muted-foreground">
-              Nous nous distinguons par notre professionnalisme, notre rigueur 
+              Nous nous distinguons par notre professionnalisme, notre rigueur
               et notre engagement envers la qualité.
             </p>
           </motion.div>
@@ -609,7 +763,7 @@ export default function Index() {
               >
                 <div className="bg-card rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
                   <div className="flex items-start gap-5">
-                    <motion.div 
+                    <motion.div
                       className="w-16 h-16 rounded-xl bg-gradient-primary flex items-center justify-center flex-shrink-0"
                       whileHover={{ rotate: 10, scale: 1.1 }}
                       transition={{ type: "spring", stiffness: 300 }}
@@ -635,7 +789,7 @@ export default function Index() {
       {/* Testimonials Section */}
       <section className="section-padding bg-background">
         <div className="container-custom">
-          <motion.div 
+          <motion.div
             className="text-center max-w-3xl mx-auto mb-16"
             initial={{ opacity: 0, rotateX: -15 }}
             whileInView={{ opacity: 1, rotateX: 0 }}
@@ -661,8 +815,8 @@ export default function Index() {
                 initial={{ opacity: 0, scale: 0.8, y: 30 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ 
-                  duration: 0.5, 
+                transition={{
+                  duration: 0.5,
                   delay: index * 0.1,
                   type: "spring",
                   stiffness: 150
@@ -703,26 +857,26 @@ export default function Index() {
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-accent" />
         <div className="absolute inset-0 opacity-10">
-          <motion.div 
+          <motion.div
             className="absolute top-0 left-0 w-96 h-96 bg-primary-foreground rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
             animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
             transition={{ duration: 6, repeat: Infinity }}
           />
-          <motion.div 
+          <motion.div
             className="absolute bottom-0 right-0 w-96 h-96 bg-primary-foreground rounded-full blur-3xl translate-x-1/2 translate-y-1/2"
             animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.1, 0.2] }}
             transition={{ duration: 6, repeat: Infinity }}
           />
         </div>
-        
-        <motion.div 
+
+        <motion.div
           className="relative container-custom text-center"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <motion.h2 
+          <motion.h2
             className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-accent-foreground mb-6"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -731,19 +885,18 @@ export default function Index() {
           >
             Prêt à concrétiser votre projet ?
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-xl text-accent-foreground/80 mb-10 max-w-2xl mx-auto"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Contactez-nous dès aujourd'hui pour un devis gratuit et 
+            Contactez-nous dès aujourd'hui pour un devis gratuit et
             personnalisé. Notre équipe est à votre disposition.
           </motion.p>
-          
-          {/* Première rangée : Appeler et Demander un devis */}
-          <motion.div 
+
+          <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center mb-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -770,8 +923,7 @@ export default function Index() {
             </motion.div>
           </motion.div>
 
-          {/* Deuxième rangée : WhatsApp et Facebook */}
-          <motion.div 
+          <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -782,9 +934,7 @@ export default function Index() {
               href="#"
               onClick={handleWhatsAppClick}
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg font-semibold text-white hover:-translate-y-1 transition-all duration-300 shadow-lg"
-              style={{
-                background: "linear-gradient(135deg, #25D366 0%, #128C7E 100%)"
-              }}
+              style={{ background: "linear-gradient(135deg, #25D366 0%, #128C7E 100%)" }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -796,9 +946,7 @@ export default function Index() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg font-semibold text-white hover:-translate-y-1 transition-all duration-300 shadow-lg"
-              style={{
-                background: "linear-gradient(135deg, #1877F2 0%, #0E5A9E 100%)"
-              }}
+              style={{ background: "linear-gradient(135deg, #1877F2 0%, #0E5A9E 100%)" }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
