@@ -305,7 +305,7 @@ const VideoPlaylist = ({ videos }: { videos: { src: string; title: string }[] })
 };
 
 // Composant VideoPlayer simple pour une seule vidéo (à insérer dans Index.tsx)
-const VideoPlayer = ({ src, title }: { src: string; title?: string }) => {
+const VideoPlayer = ({ src }: { src: string; title?: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
