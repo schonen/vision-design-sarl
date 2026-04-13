@@ -1,15 +1,15 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { HelmetProvider } from 'react-helmet-async'
 import './index.css'
 import App from './App.tsx'
 
-// Ajoute ces lignes pour déboguer les variables d'environnement
-console.log('🔥 Débogage des variables d\'environnement:');
+// Débogage des variables d'environnement
+console.log('🔧 Débogage des variables d\'environnement:');
 console.log('URL:', import.meta.env.VITE_SUPABASE_URL);
 console.log('KEY:', import.meta.env.VITE_SUPABASE_ANON_KEY);
 console.log('Toutes les variables:', import.meta.env);
 
-// Vérifie si les variables sont définies
 if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
   console.error('❌ Les variables Supabase ne sont pas définies dans .env');
 } else {
@@ -18,6 +18,8 @@ if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KE
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <HelmetProvider>
+      <App />
+    </HelmetProvider>
   </StrictMode>,
 )

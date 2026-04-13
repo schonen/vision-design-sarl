@@ -212,7 +212,7 @@ export default function APropos() {
               Histoire de Vision Design
             </h2>
             <p className="text-lg text-muted-foreground">
-              Depuis 2021, nous construisons l'avenir du génie civil au Cameroun.
+              Depuis 2016, nous construisons l'avenir du génie civil au Cameroun.
             </p>
           </SectionAnimation>
 

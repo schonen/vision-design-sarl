@@ -3,6 +3,8 @@ import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Play, ZoomIn, HardHat, Ruler, Wrench, Zap, Droplets, Flame, SkipBack, SkipForward, X } from "lucide-react";
 import SectionAnimation from "@/components/ui/section-animation";
+import { Helmet } from "react-helmet-async"; 
+
 
 // ========== 1. IMPORTS DES 35 IMAGES ==========
 import chantier1 from "@/assets/univers/chantier1.jpg";
@@ -161,6 +163,18 @@ export default function NotreUnivers() {
 
   return (
     <>
+
+      <Helmet>
+        <title>Notre Univers – Galerie photos et vidéos | Vision Design SARL</title>
+        <meta name="description" content="Découvrez l'univers de Vision Design SARL : photos de chantiers, vidéos exclusives, maçonnerie, soudure, électricité, plomberie – l'excellence en action." />
+        <meta name="keywords" content="galerie chantier Cameroun, photos construction Yaoundé, vidéos génie civil, savoir-faire Vision Design" />
+        <link rel="canonical" href="https://www.visiondesignsarl.com/notre-univers" />
+        <meta property="og:title" content="Notre Univers – Galerie de nos chantiers" />
+        <meta property="og:description" content="Plongez dans l'ambiance de nos chantiers et découvrez nos équipes au travail." />
+        <meta property="og:image" content="https://www.visiondesignsarl.com/logo-new.png" />
+        <meta property="og:url" content="https://www.visiondesignsarl.com/notre-univers" />
+      </Helmet>
+      
       {/* Hero Section avec image de fond immeubleVds et overlay */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0">

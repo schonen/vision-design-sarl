@@ -18,6 +18,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { Helmet } from "react-helmet-async"; 
+
 
 // Import project images
 import villaLuxe from "@/assets/projects/villa-luxe.png";
@@ -517,6 +519,39 @@ export default function Index() {
 
   return (
     <>
+        <Helmet>
+          <title>Vision Design SARL | Génie civil & Construction à Yaoundé, Cameroun</title>
+          <meta name="description" content="Vision Design SARL : expert en génie civil, construction de villas, immeubles, électricité, plomberie, carrelage et installations solaires. Devis gratuit – 10 ans d'expérience." />
+          <meta name="keywords" content="génie civil Cameroun, construction Yaoundé, bâtiment, entreprise construction, Vision Design SARL" />
+          <link rel="canonical" href="https://www.visiondesignsarl.com/" />
+          <meta property="og:title" content="Vision Design SARL – Leader du génie civil au Cameroun" />
+          <meta property="og:description" content="Construction, rénovation, électricité, plomberie, solaire – votre partenaire de confiance." />
+          <meta property="og:image" content="https://www.visiondesignsarl.com/logo-new.png" />
+          <meta property="og:url" content="https://www.visiondesignsarl.com/" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <script type="application/ld+json">
+        {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Vision Design SARL",
+      "url": "https://www.visiondesignsarl.com",
+      "logo": "https://www.visiondesignsarl.com/logo-new.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+237695766022",
+        "contactType": "customer service",
+        "availableLanguage": "French"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Omnisport, avant Matrix Telecoms",
+        "addressLocality": "Yaoundé",
+        "addressCountry": "CM"
+      }
+    })}
+         </script>
+        </Helmet>
+
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">

@@ -11,6 +11,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { supabase } from "@/integrations/supabase/client";
+import { Helmet } from "react-helmet-async"; 
 import immeubleVds from "@/assets/hero/immeuble-vds.png";
 
 const projectTypes = [
@@ -246,6 +247,16 @@ export default function Contact() {
 
   return (
     <>
+      <Helmet>
+        <title>Contactez Vision Design SARL | Devis gratuit pour vos travaux au Cameroun</title>
+        <meta name="description" content="Contactez Vision Design SARL pour un devis gratuit en génie civil, construction, électricité, plomberie, carrelage ou énergie solaire à Yaoundé et partout au Cameroun." />
+        <meta name="keywords" content="contact construction Cameroun, devis génie civil Yaoundé, demande de devis bâtiment, Vision Design contact" />
+        <link rel="canonical" href="https://www.visiondesignsarl.com/contact" />
+        <meta property="og:title" content="Contactez Vision Design SARL – Devis gratuit" />
+        <meta property="og:description" content="Demandez un devis pour votre projet de construction ou de rénovation. Réponse rapide." />
+        <meta property="og:image" content="https://www.visiondesignsarl.com/logo-new.png" />
+        <meta property="og:url" content="https://www.visiondesignsarl.com/contact" />
+      </Helmet>
       {/* Hero */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero" />

@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Building2, Wrench, Zap, Grid3X3, HardHat, Settings, Sun, CheckCircle, ArrowRight, Phone } from "lucide-react";
 import SectionAnimation from "@/components/ui/section-animation";
+import { Helmet } from "react-helmet-async"; 
+
 
 // Import images
 import batimentImg from "@/assets/services/batiment.png";
@@ -137,6 +139,18 @@ const handleContactRedirect = (e: React.MouseEvent<HTMLAnchorElement>, serviceId
 export default function Services() {
   return (
     <>
+      <Helmet>
+        <title>Nos Services – Génie civil, Construction, Électricité, Plomberie, Carrelage, Solaire | Vision Design SARL</title>
+        <meta name="description" content="Découvrez tous les services de Vision Design SARL : bâtiment, plomberie, électricité, carrelage, génie civil, prestations diverses. Devis gratuit." />
+        <meta name="keywords" content="services construction Yaoundé, génie civil Cameroun, électricien, plombier, carreleur, panneaux solaires" />
+        <link rel="canonical" href="https://www.visiondesignsarl.com/services" />
+        <meta property="og:title" content="Nos Services – Vision Design SARL" />
+        <meta property="og:description" content="Une gamme complète pour tous vos projets de construction et de rénovation." />
+        <meta property="og:image" content="https://www.visiondesignsarl.com/logo-new.png" />
+        <meta property="og:url" content="https://www.visiondesignsarl.com/services" />
+        </Helmet>
+
+
       {/* Hero */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero" />

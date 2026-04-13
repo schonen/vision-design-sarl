@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight as ArrowRightIcon, MapPin, CheckCircle, Phone, MessageCircle } from "lucide-react";
 import { useState, useEffect } from "react";
 import { projects } from "./Realisations";
+import { Helmet } from "react-helmet-async"; 
 
 export default function RealisationDetail() {
   const { id } = useParams();
@@ -59,6 +60,18 @@ export default function RealisationDetail() {
 
   return (
     <>
+
+      <Helmet>
+        <title>Nos Réalisations – Projets de construction et génie civil | Vision Design SARL</title>
+        <meta name="description" content="Découvrez nos réalisations : villas, immeubles, installations électriques, plomberie, carrelage, solaire – plus de 20 projets au Cameroun." />
+        <meta name="keywords" content="réalisations construction Yaoundé, projets génie civil Cameroun, villa luxe, immeuble R+3, forage automatique" />
+        <link rel="canonical" href="https://www.visiondesignsarl.com/realisations" />
+        <meta property="og:title" content="Nos Réalisations – Vision Design SARL" />
+        <meta property="og:description" content="Des projets concrets qui témoignent de notre savoir-faire." />
+        <meta property="og:image" content="https://www.visiondesignsarl.com/logo-new.png" />
+        <meta property="og:url" content="https://www.visiondesignsarl.com/realisations" />
+      </Helmet>
+
       {/* Hero Image avec navigation */}
       <section className="relative pt-24 bg-muted">
         <div className="container-custom py-8">

@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { Building2, ArrowRight,  } from "lucide-react";
 import { Link } from "react-router-dom";
 import SectionAnimation from "@/components/ui/section-animation";
+import { Helmet } from "react-helmet-async"; 
+
 
 // Import images
 import immeubleR3Omnisport from "@/assets/projects/immeuble-r3-omnisport.png";
@@ -128,6 +130,17 @@ export default function Realisations() {
 
   return (
     <>
+
+      <Helmet>
+        <title>Nos Réalisations – Projets de construction et génie civil | Vision Design SARL</title>
+        <meta name="description" content="Découvrez nos réalisations : villas, immeubles, installations électriques, plomberie, carrelage, solaire – plus de 20 projets au Cameroun." />
+        <meta name="keywords" content="réalisations construction Yaoundé, projets génie civil Cameroun, villa luxe, immeuble R+3, forage automatique" />
+        <link rel="canonical" href="https://www.visiondesignsarl.com/realisations" />
+        <meta property="og:title" content="Nos Réalisations – Vision Design SARL" />
+        <meta property="og:description" content="Des projets concrets qui témoignent de notre savoir-faire." />
+        <meta property="og:image" content="https://www.visiondesignsarl.com/logo-new.png" />
+        <meta property="og:url" content="https://www.visiondesignsarl.com/realisations" />
+      </Helmet>
       {/* Hero */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero" />
