@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import {
   ArrowRight, Building2, Wrench, Zap, Grid3X3, HardHat, Settings, Phone,
   Award, Users, Clock, Shield, Star, Quote, Bot, Calculator, HelpCircle,
-  Sparkles, Facebook, Play, Pause, SkipBack, SkipForward, Maximize, Minimize
+  Sparkles, Facebook, Play, Pause, SkipBack, SkipForward, Maximize, Minimize,
+  ChevronLeft, ChevronRight
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import visionBotImage from "@/assets/chatbot/visionbot.png";
@@ -27,8 +28,15 @@ import electricalSystem from "@/assets/projects/electrical-system.jpeg";
 import equipe from "@/assets/team/equipe-1.jpeg";
 import immeubleVds from "@/assets/hero/immeuble-vds.png";
 
-// Vidéo de présentation
+// Vidéos de présentation
+import introductionVideo from "@/assets/accueil/Introduction VDS.mp4";
 import presentationVideo from "@/assets/accueil/Présentation VDS.mp4";
+import partenaireVideo from "@/assets/partenaires/Partenaire VDS.mp4";
+
+// Import des images partenaires
+import champion1 from "@/assets/partenaires/champion1.jpeg";
+import champion2 from "@/assets/partenaires/champion2.jpeg";
+import champion3 from "@/assets/partenaires/champion3.jpeg";
 
 const services = [
   {
@@ -128,7 +136,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    name: "Mme Bel",
+    name: "Mme Bel NDJOUMOU",
     role: "Femme d'affaires",
     location: "Yaoundé",
     content: "Collaboration exceptionnelle avec Vision Design SARL. Leur expertise et leur sens du détail ont permis de concrétiser mon projet immobilier exactement comme je l'imaginais.",
@@ -143,40 +151,27 @@ const testimonials = [
   },
 ];
 
-export default function Index() {
-  // Fonction pour WhatsApp avec message pré-défini
-  const handleWhatsAppClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const phoneNumber = "237677571699";
-    const message = encodeURIComponent(
-      "Bonjour Vision Design SARL,\n\nJe vous contacte suite à la visite de votre site web. Je souhaiterais obtenir plus d'informations sur vos services de construction et de génie civil.\n\nMerci de bien vouloir me recontacter."
-    );
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
-  };
-
-  // États pour la vidéo
+// Composant VideoPlaylist
+const VideoPlaylist = ({ videos }: { videos: { src: string; title: string }[] }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
-  // Fonctions de contrôle de la vidéo
+  const currentVideo = videos[currentIndex];
+
   const togglePlayPause = () => {
     if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
+      if (isPlaying) videoRef.current.pause();
+      else videoRef.current.play();
       setIsPlaying(!isPlaying);
     }
   };
 
   const skip = (seconds: number) => {
-    if (videoRef.current) {
-      videoRef.current.currentTime += seconds;
-    }
+    if (videoRef.current) videoRef.current.currentTime += seconds;
   };
 
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -204,7 +199,156 @@ export default function Index() {
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
   };
 
-  // Écouter les événements de la vidéo
+  const goToVideo = (index: number) => {
+    setCurrentIndex(index);
+    setIsPlaying(false);
+    setCurrentTime(0);
+    if (videoRef.current) {
+      videoRef.current.load();
+    }
+  };
+
+  // Gestion de la fin de vidéo pour passer à la suivante
+  const handleVideoEnd = () => {
+    if (currentIndex + 1 < videos.length) {
+      goToVideo(currentIndex + 1);
+    }
+  };
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleTimeUpdate = () => setCurrentTime(video.currentTime);
+    const handleLoadedMetadata = () => setDuration(video.duration);
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+    const handleFullscreenChange = () => setIsFullscreen(!!document.fullscreenElement);
+    const handleEnded = handleVideoEnd;
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('loadedmetadata', handleLoadedMetadata);
+    video.addEventListener('play', handlePlay);
+    video.addEventListener('pause', handlePause);
+    video.addEventListener('ended', handleEnded);
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      video.removeEventListener('play', handlePlay);
+      video.removeEventListener('pause', handlePause);
+      video.removeEventListener('ended', handleEnded);
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, [currentIndex]);
+
+  return (
+    <div className="space-y-6">
+      {/* Lecteur vidéo */}
+      <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-black group">
+        <video
+          ref={videoRef}
+          src={currentVideo.src}
+          className="w-full h-auto"
+          poster=""
+          onClick={togglePlayPause}
+        />
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 transition-opacity duration-300">
+          <div className="flex items-center gap-3 mb-3">
+            <span className="text-white text-sm">{formatTime(currentTime)}</span>
+            <input
+              type="range"
+              min="0"
+              max={duration || 0}
+              value={currentTime}
+              onChange={handleSeek}
+              className="flex-1 h-1 bg-white/30 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent"
+            />
+            <span className="text-white text-sm">{formatTime(duration)}</span>
+          </div>
+          <div className="flex justify-center gap-6">
+            <button onClick={() => skip(-10)} className="bg-white/20 hover:bg-white/40 rounded-full p-3 transition text-white" title="Reculer de 10 secondes">
+              <SkipBack className="w-6 h-6" />
+            </button>
+            <button onClick={togglePlayPause} className="bg-accent hover:bg-accent/80 rounded-full p-4 transition shadow-lg text-white">
+              {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-0.5" />}
+            </button>
+            <button onClick={() => skip(10)} className="bg-white/20 hover:bg-white/40 rounded-full p-3 transition text-white" title="Avancer de 10 secondes">
+              <SkipForward className="w-6 h-6" />
+            </button>
+            <button onClick={toggleFullscreen} className="bg-white/20 hover:bg-white/40 rounded-full p-3 transition text-white" title="Plein écran">
+              {isFullscreen ? <Minimize className="w-6 h-6" /> : <Maximize className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Liste verticale des vidéos */}
+      <div className="flex flex-col gap-2">
+        {videos.map((video, idx) => (
+          <button
+            key={idx}
+            onClick={() => goToVideo(idx)}
+            className={`text-left p-3 rounded-lg transition-all ${
+              idx === currentIndex
+                ? "bg-primary/20 text-primary font-semibold border-l-4 border-primary"
+                : "bg-card hover:bg-muted text-foreground"
+            }`}
+          >
+            {video.title}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Composant VideoPlayer simple pour une seule vidéo (à insérer dans Index.tsx)
+const VideoPlayer = ({ src, title }: { src: string; title?: string }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+  const togglePlayPause = () => {
+    if (videoRef.current) {
+      if (isPlaying) videoRef.current.pause();
+      else videoRef.current.play();
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const skip = (seconds: number) => {
+    if (videoRef.current) videoRef.current.currentTime += seconds;
+  };
+
+  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (videoRef.current) {
+      const time = parseFloat(e.target.value);
+      videoRef.current.currentTime = time;
+      setCurrentTime(time);
+    }
+  };
+
+  const toggleFullscreen = () => {
+    const videoElement = videoRef.current;
+    if (!document.fullscreenElement && videoElement) {
+      videoElement.requestFullscreen();
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen();
+      setIsFullscreen(false);
+    }
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  };
+
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -229,6 +373,147 @@ export default function Index() {
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
     };
   }, []);
+
+  return (
+    <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-black group">
+      <video
+        ref={videoRef}
+        src={src}
+        className="w-full h-auto"
+        poster=""
+        onClick={togglePlayPause}
+      />
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 transition-opacity duration-300">
+        <div className="flex items-center gap-3 mb-3">
+          <span className="text-white text-sm">{formatTime(currentTime)}</span>
+          <input
+            type="range"
+            min="0"
+            max={duration || 0}
+            value={currentTime}
+            onChange={handleSeek}
+            className="flex-1 h-1 bg-white/30 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent"
+          />
+          <span className="text-white text-sm">{formatTime(duration)}</span>
+        </div>
+        <div className="flex justify-center gap-6">
+          <button onClick={() => skip(-10)} className="bg-white/20 hover:bg-white/40 rounded-full p-3 transition text-white" title="Reculer de 10 secondes">
+            <SkipBack className="w-6 h-6" />
+          </button>
+          <button onClick={togglePlayPause} className="bg-accent hover:bg-accent/80 rounded-full p-4 transition shadow-lg text-white">
+            {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-0.5" />}
+          </button>
+          <button onClick={() => skip(10)} className="bg-white/20 hover:bg-white/40 rounded-full p-3 transition text-white" title="Avancer de 10 secondes">
+            <SkipForward className="w-6 h-6" />
+          </button>
+          <button onClick={toggleFullscreen} className="bg-white/20 hover:bg-white/40 rounded-full p-3 transition text-white" title="Plein écran">
+            {isFullscreen ? <Minimize className="w-6 h-6" /> : <Maximize className="w-6 h-6" />}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}; 
+
+// Composant ImageCarousel pour les partenaires
+const ImageCarousel = ({ images }: { images: { src: string; alt: string }[] }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const intervalRef = useRef<number | null>(null);
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
+  };
+
+  // Autoplay
+  useEffect(() => {
+    if (isAutoPlaying) {
+      intervalRef.current = setInterval(() => {
+        nextSlide();
+      }, 5000); // Change toutes les 5 secondes
+    }
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [isAutoPlaying, currentIndex]);
+
+  return (
+    <div className="relative w-full">
+      <div className="overflow-hidden rounded-xl">
+        <div
+          className="flex transition-transform duration-500 ease-out"
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        >
+          {images.map((image, idx) => (
+            <div key={idx} className="w-full flex-shrink-0">
+              <img
+                src={image.src}
+                alt={image.alt}
+                className="w-full h-96 object-contain bg-muted/20"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Flèches de navigation */}
+      <button
+        onClick={() => { setIsAutoPlaying(false); prevSlide(); }}
+        className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition"
+      >
+        <ChevronLeft className="w-6 h-6" />
+      </button>
+      <button
+        onClick={() => { setIsAutoPlaying(false); nextSlide(); }}
+        className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition"
+      >
+        <ChevronRight className="w-6 h-6" />
+      </button>
+
+      {/* Indicateurs (points) */}
+      <div className="flex justify-center gap-2 mt-4">
+        {images.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => { setIsAutoPlaying(false); goToSlide(idx); }}
+            className={`w-2 h-2 rounded-full transition-all ${
+              idx === currentIndex ? "bg-primary w-4" : "bg-muted-foreground"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default function Index() {
+  const handleWhatsAppClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const phoneNumber = "237677571699";
+    const message = encodeURIComponent(
+      "Bonjour Vision Design SARL,\n\nJe vous contacte suite à la visite de votre site web. Je souhaiterais obtenir plus d'informations sur vos services de construction et de génie civil.\n\nMerci de bien vouloir me recontacter."
+    );
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+  };
+
+  const playlistVideos = [
+    { src: introductionVideo, title: "Introduction Vision Design" },
+    { src: presentationVideo, title: "Présentation de l'entreprise" },
+  ];
+
+  const partnerImages = [
+    { src: champion1, alt: "Partenaire FECALUTTES - Champion 1" },
+    { src: champion2, alt: "Partenaire FECALUTTES - Champion 2" },
+    { src: champion3, alt: "Partenaire FECALUTTES - Champion 3" },
+  ];
 
   return (
     <>
@@ -300,7 +585,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Video Presentation Section */}
+      {/* Video Presentation Section avec playlist et animation */}
       <motion.section
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -317,64 +602,8 @@ export default function Index() {
               Notre savoir-faire et notre engagement en images
             </p>
           </div>
-          <div className="relative max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl bg-black group">
-            <video
-              ref={videoRef}
-              src={presentationVideo}
-              className="w-full h-auto"
-              poster=""
-              onClick={togglePlayPause}
-            />
-            {/* Overlay des contrôles */}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 transition-opacity duration-300">
-              {/* Barre de progression avec temps */}
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-white text-sm">
-                  {formatTime(currentTime)}
-                </span>
-                <input
-                  type="range"
-                  min="0"
-                  max={duration || 0}
-                  value={currentTime}
-                  onChange={handleSeek}
-                  className="flex-1 h-1 bg-white/30 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent"
-                />
-                <span className="text-white text-sm">
-                  {formatTime(duration)}
-                </span>
-              </div>
-              {/* Boutons de contrôle */}
-              <div className="flex justify-center gap-6">
-                <button
-                  onClick={() => skip(-10)}
-                  className="bg-white/20 hover:bg-white/40 rounded-full p-3 transition text-white"
-                  title="Reculer de 10 secondes"
-                >
-                  <SkipBack className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={togglePlayPause}
-                  className="bg-accent hover:bg-accent/80 rounded-full p-4 transition shadow-lg text-white"
-                >
-                  {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-0.5" />}
-                </button>
-                <button
-                  onClick={() => skip(10)}
-                  className="bg-white/20 hover:bg-white/40 rounded-full p-3 transition text-white"
-                  title="Avancer de 10 secondes"
-                >
-                  <SkipForward className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={toggleFullscreen}
-                  className="bg-white/20 hover:bg-white/40 rounded-full p-3 transition text-white"
-                  title="Plein écran"
-                >
-                  {isFullscreen ? <Minimize className="w-6 h-6" /> : <Maximize className="w-6 h-6" />}
-                </button>
-              </div>
-            </div>
+          <div className="max-w-4xl mx-auto">
+            <VideoPlaylist videos={playlistVideos} />
           </div>
         </div>
       </motion.section>
@@ -785,6 +1014,48 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {/* Partners Section (avec animation) */}
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="section-padding bg-background"
+      >
+        <div className="container-custom">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-foreground">
+              Nos Partenaires
+            </h2>
+            <p className="text-muted-foreground mt-2">
+              Ils nous font confiance et participent à notre succès
+            </p>
+          </div>
+
+          {/* Description du partenariat */}
+          <div className="max-w-3xl mx-auto text-center mb-10">
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Vision Design SARL est fier de collaborer avec la <strong className="text-primary">FECALUTTES (Fédération Camerounaise de Luttes)</strong>.
+              Ce partenariat nous permet de soutenir le sport de haut niveau au Cameroun tout en partageant des valeurs communes : 
+              rigueur, excellence et dépassement de soi.
+            </p>
+          </div>
+
+          {/* Carrousel des images */}
+          <div className="max-w-3xl mx-auto">
+            <ImageCarousel images={partnerImages} />
+          </div>
+        </div>
+
+        {/* Vidéo partenaire */}
+        <div className="max-w-3xl mx-auto mt-12">
+          <h3 className="text-xl font-heading font-semibold text-foreground mb-4 text-center">
+               Découvrez notre partenariat en vidéo
+          </h3>
+          <VideoPlayer src={partenaireVideo} />
+        </div>
+      </motion.section>
 
       {/* Testimonials Section */}
       <section className="section-padding bg-background">

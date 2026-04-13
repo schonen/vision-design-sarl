@@ -28,7 +28,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    name: "Mme Bel",
+    name: "Mme Bel NDJOUMOU",
     role: "Femme d'affaires",
     location: "Yaoundé",
     content: "Collaboration exceptionnelle avec Vision Design SARL. Leur expertise et leur sens du détail ont permis de concrétiser mon projet immobilier exactement comme je l'imaginais.",
