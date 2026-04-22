@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import {  Users, Award, Target, Heart, Lightbulb, MapPin, Calendar, ArrowRight, Bot, Calculator, HelpCircle, Sparkles, Star, Quote } from "lucide-react";
 import AnimatedCounter from "@/components/ui/animated-counter";
 import SectionAnimation from "@/components/ui/section-animation";
+import { Helmet } from "react-helmet-async"; 
 
 // Import images
 import equipe1 from "@/assets/team/equipe-1.jpeg";
@@ -125,6 +126,17 @@ const values = [
 export default function APropos() {
   return (
     <>
+      <Helmet>
+        <title>À propos - Vision Design SARL | Génie civil et construction au Cameroun</title>
+        <meta name="description" content="Découvrez l'histoire de Vision Design SARL, leader en génie civil, construction, électricité, plomberie, carrelage et solutions solaires au Cameroun. Plus de 10 ans d'expérience, 20+ projets réalisés." />
+        <meta name="keywords" content="entreprise génie civil Cameroun, construction Yaoundé, Vision Design SARL histoire, équipe construction, valeurs excellence intégrité innovation" />
+        <link rel="canonical" href="https://www.visiondesignsarl.com/a-propos" />
+        <meta property="og:title" content="À propos - Vision Design SARL | Votre partenaire construction au Cameroun" />
+        <meta property="og:description" content="Une équipe passionnée, des valeurs fortes, des projets concrets – découvrez qui nous sommes." />
+        <meta property="og:image" content="https://www.visiondesignsarl.com/logo-new.png" />
+        <meta property="og:url" content="https://www.visiondesignsarl.com/a-propos" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
       {/* Hero */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero" />

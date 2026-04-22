@@ -9,7 +9,7 @@ import Services from "./pages/Services";
 import Realisations from "./pages/Realisations";
 import RealisationDetail from "./pages/RealisationDetail";
 import APropos from "./pages/APropos";
-import NotreUnivers from "./pages/NotreUnivers";
+import Galerie from "./pages/Galerie";
 import Contact from "./pages/Contact";
 import MentionsLegales from "./pages/MentionsLegales";
 import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
@@ -30,7 +30,7 @@ const App = () => (
             <Route path="/realisations" element={<Realisations />} />
             <Route path="/realisations/:id" element={<RealisationDetail />} />
             <Route path="/a-propos" element={<APropos />} />
-            <Route path="/notre-univers" element={<NotreUnivers />} />
+            <Route path="/galerie" element={<Galerie />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/mentions-legales" element={<MentionsLegales />} />
             <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
