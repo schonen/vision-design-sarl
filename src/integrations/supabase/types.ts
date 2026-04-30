@@ -7,68 +7,61 @@
   | Json[]
 
 export type Database = {
-  // Allows to automatically instantiate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.4"
+    PostgrestVersion: "14.1"
   }
   public: {
     Tables: {
-      conversation_messages: {
+      leads: {
         Row: {
-          content: string
-          conversation_id: string | null
-          created_at: string | null
+          created_at: string
+          discussion_topic: string | null
+          email: string | null
           id: string
-          image_url: string | null
-          role: string
+          name: string
+          phone: string | null
+          source_page: string | null
         }
         Insert: {
-          content: string
-          conversation_id?: string | null
-          created_at?: string | null
+          created_at?: string
+          discussion_topic?: string | null
+          email?: string | null
           id?: string
-          image_url?: string | null
-          role: string
+          name: string
+          phone?: string | null
+          source_page?: string | null
         }
         Update: {
-          content?: string
-          conversation_id?: string | null
-          created_at?: string | null
+          created_at?: string
+          discussion_topic?: string | null
+          email?: string | null
           id?: string
-          image_url?: string | null
-          role?: string
+          name?: string
+          phone?: string | null
+          source_page?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "conversation_messages_conversation_id_fkey"
-            columns: ["conversation_id"]
-            isOneToOne: false
-            referencedRelation: "conversations"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
+        Relationships: []
+      },
       conversations: {
         Row: {
-          created_at: string | null
           id: string
           lead_id: string | null
           title: string | null
+          created_at: string | null
           updated_at: string | null
         }
         Insert: {
-          created_at?: string | null
           id?: string
           lead_id?: string | null
           title?: string | null
+          created_at?: string | null
           updated_at?: string | null
         }
         Update: {
-          created_at?: string | null
           id?: string
           lead_id?: string | null
           title?: string | null
+          created_at?: string | null
           updated_at?: string | null
         }
         Relationships: [
@@ -78,72 +71,74 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "leads"
             referencedColumns: ["id"]
-          },
+          }
         ]
-      }
+      },
+      conversation_messages: {
+        Row: {
+          id: string
+          conversation_id: string | null
+          role: string
+          content: string
+          image_url: string | null
+          created_at: string | null
+        }
+        Insert: {
+          id?: string
+          conversation_id?: string | null
+          role: string
+          content: string
+          image_url?: string | null
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          conversation_id?: string | null
+          role?: string
+          content?: string
+          image_url?: string | null
+          created_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversation_messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          }
+        ]
+      },
       galerie_medias: {
         Row: {
+          id: string
+          title: string
+          description: string | null
+          type: string
+          file_url: string
+          thumbnail_url: string | null
           category: string | null
           created_at: string | null
-          description: string | null
-          file_url: string
-          id: string
-          thumbnail_url: string | null
-          title: string
-          type: string
-          updated_at: string | null
         }
         Insert: {
+          id?: string
+          title: string
+          description?: string | null
+          type: string
+          file_url: string
+          thumbnail_url?: string | null
           category?: string | null
           created_at?: string | null
-          description?: string | null
-          file_url: string
-          id?: string
-          thumbnail_url?: string | null
-          title: string
-          type: string
-          updated_at?: string | null
         }
         Update: {
-          category?: string | null
-          created_at?: string | null
-          description?: string | null
-          file_url?: string
           id?: string
-          thumbnail_url?: string | null
           title?: string
+          description?: string | null
           type?: string
-          updated_at?: string | null
-        }
-        Relationships: []
-      }
-      leads: {
-        Row: {
-          created_at: string | null
-          discussion_topic: string | null
-          email: string | null
-          id: string
-          name: string
-          phone: string | null
-          source_page: string | null
-        }
-        Insert: {
+          file_url?: string
+          thumbnail_url?: string | null
+          category?: string | null
           created_at?: string | null
-          discussion_topic?: string | null
-          email?: string | null
-          id?: string
-          name: string
-          phone?: string | null
-          source_page?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          discussion_topic?: string | null
-          email?: string | null
-          id?: string
-          name?: string
-          phone?: string | null
-          source_page?: string | null
         }
         Relationships: []
       }

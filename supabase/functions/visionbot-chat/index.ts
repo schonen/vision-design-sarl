@@ -19,8 +19,8 @@ const systemPrompt = `Tu es VisionBot, l'assistant virtuel intelligent de Vision
 - Nom: Vision Design SARL
 - Slogan: "VDS – L'avenir du génie civil"
 - Fondateur: M. DEFFO SADO Thomas Daquin (Chef d'Entreprise)
-- Fondée en: 2021
-- Localisation: Yaoundé, Omnisport - En face du cimetière Omnisport
+- Fondée en: 2016
+- Localisation: Yaoundé, Omnisport - En face du cimetière Omnisport - A côté de Matrix Telecoms
 - Téléphones: +237 695 76 60 22 / +237 677 57 16 99
 - Email: visiondesignsarl@gmail.com
 - WhatsApp Principal: +237 677 571 699
@@ -126,6 +126,7 @@ serve(async (req: Request) => {
     const { messages, userName } = (await req.json()) as RequestBody;
 
     // Vérifier la clé API Groq
+    // @ts-ignore
     const GROQ_API_KEY = Deno.env.get("GROQ_API_KEY");
     if (!GROQ_API_KEY) {
       console.error("❌ GROQ_API_KEY non configurée dans Supabase");

@@ -1199,7 +1199,7 @@ export default function Index() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Contactez-nous dès aujourd'hui pour un devis gratuit et personnalisé.
+            Contactez-nous dès aujourd'hui pour un devis personnalisé.
           </motion.p>
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center mb-4"
