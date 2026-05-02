@@ -80,9 +80,7 @@ export default function RealisationDetail() {
                 <img
                   src={project.image}
                   alt={project.title}
-                  className={`absolute inset-0 w-full h-full transition-transform duration-500 group-hover:scale-105 ${
-                    project.id === "forage-omnisport" ? "object-contain" : "object-cover"
-                  }`}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
             </div>

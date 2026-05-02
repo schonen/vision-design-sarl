@@ -6,9 +6,9 @@ import solarInstallation from "@/assets/projects/solar-installation.jpg";
 import villaLuxe from "@/assets/projects/villa-luxe.png";
 import boukarouYaounde from "@/assets/projects/boukarou-yaounde.jpeg";
 import chantierMican from "@/assets/projects/chantier-mican.jpeg";
-import maisonEbebda from "@/assets/projects/maison-ebebda.jpeg";
+import maisonEbebda from "@/assets/projects/maison-ebebda.png";
 import carrelageTerrasseNkolmesseng from "@/assets/projects/carrelage-terrasse-nklomesseng.jpeg";
-import forageOmnisport from "@/assets/projects/forage-omnisport.jpeg";
+import forageOmnisport from "@/assets/projects/forage-omnisport.png";
 
 export const projects = [
   {

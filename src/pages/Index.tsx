@@ -81,9 +81,9 @@ const services = [
 // Import new project images
 import boukarouYaounde from "@/assets/projects/boukarou-yaounde.jpeg";
 import maisonNgockSaa from "@/assets/projects/chantier-mican.jpeg";
-import maisonEbeda from "@/assets/projects/maison-ebebda.jpeg";
+import maisonEbeda from "@/assets/projects/maison-ebebda.png";
 import carrelageTerrasseMican from "@/assets/projects/carrelage-terrasse-nklomesseng.jpeg";
-import forageNkolmesseng from "@/assets/projects/forage-omnisport.jpeg";
+import forageNkolmesseng from "@/assets/projects/forage-omnisport.png";
 
 const projects = [
   { image: boukarouYaounde, title: "Boukarou Moderne à Odza", location: "Yaoundé, Odza Borne 10", category: "Bâtiment & Style" },
