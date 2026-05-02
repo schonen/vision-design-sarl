@@ -544,8 +544,7 @@ export default function ChatbotWidget() {
                       <motion.form initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} onSubmit={handleEmailSubmit} className="space-y-4">
                         <p className="text-sm text-muted-foreground text-center">Merci <span className="font-medium text-foreground">{nameInput}</span> ! Quelle est votre adresse email ?</p>
                         <div>
-                          <input type="email" value={emailInput} onChange={(e) => setEmailInput(e.target.value)} placeholder="votre@email.com" className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground focus:ring-2 focus:ring-primary" required autoFocus />
-                        </div>
+                        <input type="email" autoComplete="email" value={emailInput} onChange={(e) => setEmailInput(e.target.value)} placeholder="votre@email.com" className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground focus:ring-2 focus:ring-primary" required autoFocus />                        </div>
                         <div className="flex items-start gap-2 text-xs text-muted-foreground bg-muted/50 p-3 rounded-lg">
                           <Shield className="w-4 h-4 mt-0.5 flex-shrink-0 text-secondary" />
                           <span>Vos informations sont utilisées uniquement pour vous assister et vous recontacter si nécessaire.</span>
