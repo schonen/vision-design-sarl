@@ -264,6 +264,11 @@ export default function Galerie() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
+  // 🔽 AJOUT : remonter en haut de page à chaque chargement de la galerie
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     const fetchMedias = async () => {
       const { data, error } = await supabase
