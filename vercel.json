@@ -20,7 +20,7 @@
         { "key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=()" },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.gpteng.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://bdwckdzmhvkfitsylctq.supabase.co; media-src 'self' https://bdwckdzmhvkfitsylctq.supabase.co; img-src 'self' data: https://bdwckdzmhvkfitsylctq.supabase.co;"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.gpteng.co https://maps.googleapis.com https://*.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://bdwckdzmhvkfitsylctq.supabase.co; media-src 'self' https://bdwckdzmhvkfitsylctq.supabase.co; img-src 'self' data: https://bdwckdzmhvkfitsylctq.supabase.co https://*.google.com https://*.googleapis.com; frame-src 'self' https://www.google.com;"
         }
       ]
     }
